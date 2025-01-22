@@ -7,6 +7,7 @@ import 'package:pub_updater/pub_updater.dart';
 
 import '../../metadata.dart';
 import '../commands/cloud.dart';
+import '../commands/coverage_command/coverage_command.dart';
 import '../commands/upgrade.dart';
 import '../utils/utils.dart';
 import 'context.dart';
@@ -36,6 +37,13 @@ class CliRunner extends CommandRunner<int> {
     addCommand(
       CloudCommand(
         context: context,
+      ),
+    );
+
+    addCommand(
+      CoverageCommand(
+        context: context,
+        logger: _logger,
       ),
     );
   }
@@ -84,6 +92,15 @@ class CliRunner extends CommandRunner<int> {
     } on UnableToCreateZipFileException catch (error) {
       _logger.err(error.message);
       return ExitCode.ioError.code;
+    } on FolderNotFoundException catch (error) {
+      _logger.err(error.message);
+      return ExitCode.data.code;
+    } on InvalidFlutterPackageException catch (error) {
+      _logger.err(error.message);
+      return ExitCode.data.code;
+    } on InvalidWidgetbookPackageException catch (error) {
+      _logger.err(error.message);
+      return ExitCode.data.code;
     } catch (error) {
       _logger.err(error.toString());
       return ExitCode.software.code;

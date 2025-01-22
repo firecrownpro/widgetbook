@@ -8,13 +8,15 @@ documentation: https://docs.widgetbook.io
 topics: [widgetbook, storybook, ui, tool, cli]
 
 screenshots:
-  - description: 'Widgetbook Logo'
+  - description: "Widgetbook Logo"
     path: assets/logo.png
 
 environment:
   sdk: ">=3.3.0 <4.0.0"
 
 dependencies:
+  analyzer: ^6.8.0
+  archive: ^3.3.0
   args: ^2.3.0
   ci: ^0.1.0
   collection: ^1.15.0
